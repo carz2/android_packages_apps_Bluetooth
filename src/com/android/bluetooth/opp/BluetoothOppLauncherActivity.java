@@ -211,26 +211,26 @@ public class BluetoothOppLauncherActivity extends Activity {
         final ContentResolver resolver = this.getContentResolver();
 
         // Check if airplane mode is on
-        final boolean isAirplaneModeOn = Settings.System.getInt(resolver,
-                Settings.System.AIRPLANE_MODE_ON, 0) == 1;
+        final boolean isAirplaneModeOn = Settings.Global.getInt(resolver,
+                Settings.Global.AIRPLANE_MODE_ON, 0) == 1;
         if (!isAirplaneModeOn) {
             return true;
         }
 
         // Check if airplane mode matters
-        final String airplaneModeRadios = Settings.System.getString(resolver,
-                Settings.System.AIRPLANE_MODE_RADIOS);
+        final String airplaneModeRadios = Settings.Global.getString(resolver,
+                Settings.Global.AIRPLANE_MODE_RADIOS);
         final boolean isAirplaneSensitive = airplaneModeRadios == null ? true :
-                airplaneModeRadios.contains(Settings.System.RADIO_BLUETOOTH);
+                airplaneModeRadios.contains(Settings.Global.RADIO_BLUETOOTH);
         if (!isAirplaneSensitive) {
             return true;
         }
 
         // Check if Bluetooth may be enabled in airplane mode
-        final String airplaneModeToggleableRadios = Settings.System.getString(resolver,
-                Settings.System.AIRPLANE_MODE_TOGGLEABLE_RADIOS);
+        final String airplaneModeToggleableRadios = Settings.Global.getString(resolver,
+                Settings.Global.AIRPLANE_MODE_TOGGLEABLE_RADIOS);
         final boolean isAirplaneToggleable = airplaneModeToggleableRadios == null ? false :
-                airplaneModeToggleableRadios.contains(Settings.System.RADIO_BLUETOOTH);
+                airplaneModeToggleableRadios.contains(Settings.Global.RADIO_BLUETOOTH);
         if (isAirplaneToggleable) {
             return true;
         }
